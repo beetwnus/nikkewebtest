@@ -3,11 +3,15 @@ body {
     user-select: none;
     list-style-type: none;
     background-image: url('images/others/background.webp');
-    background-size:cover;
+    background-size: cover;
 
     /* 替換為你想要的寬度值 */
     margin: auto;
     /* 可以使網頁水平居中 */
+}
+
+.hidden {
+    display: none;
 }
 
 #header {
