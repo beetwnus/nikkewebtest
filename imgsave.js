@@ -1,9 +1,10 @@
 function screenshot() {
     // 隱藏按鈕
-    var reverseCheckbox = document.getElementById('revCheckbox');
+    var switchLabel = document.querySelector('.switch');
     var resetButton = document.getElementById('btn_reset');
     var saveButton = document.getElementById('btn_save');
-    reverseCheckbox.classList.add('hidden');
+
+    switchLabel.classList.add('hidden');
     resetButton.classList.add('hidden');
     saveButton.classList.add('hidden');
 
@@ -14,7 +15,7 @@ function screenshot() {
     });
 
     // 截圖完成後顯示按鈕
-    reverseCheckbox.classList.remove('hidden');
+    switchLabel.classList.remove('hidden');
     resetButton.classList.remove('hidden');
     saveButton.classList.remove('hidden');
 }
