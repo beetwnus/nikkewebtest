@@ -7,9 +7,6 @@ function screenshot() {
     saveButton.classList.add('hidden');
     dataButton.classList.add('hidden');
 
-    var reverseCheckbox = document.getElementById('reverseCheckbox');
-    reverseCheckbox.style.display = 'none';
-
     html2canvas(document.getElementById('main')).then(function (canvas) {
         var newTab = window.open();
         newTab.crossOrigin = "anonymous"; // 設定為匿名模式，處理跨域
@@ -19,8 +16,6 @@ function screenshot() {
         resetButton.classList.remove('hidden');
         saveButton.classList.remove('hidden');
         dataButton.classList.remove('hidden');
-
-        reverseCheckbox.style.display = 'block';
         
     });
 }
