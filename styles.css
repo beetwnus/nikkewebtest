@@ -16,13 +16,13 @@ body {
 
 #header {
     clear: both;
-    height: 350px;
+    height: 320px;
     text-align: center;
 }
 
 #main {
-    margin-left: 10%;
-    margin-right: 10%;
+    margin-left: 8%;
+    margin-right: 8%;
     background-color: #ffffffdd;
     text-align: center;
 }
@@ -236,4 +236,10 @@ input:checked+.slider:before {
     -webkit-transform: translateX(13px);
     -ms-transform: translateX(13px);
     transform: translateX(13px);
+}
+
+/* 自訂關閉按鈕的樣式 */
+.swal2-close {
+    background-color: black;
+    color: white;
 }

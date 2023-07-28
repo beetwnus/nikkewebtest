@@ -2,6 +2,11 @@ function saveUserState() {
     for (const num in nikke) {
         localStorage.setItem(`clickCount_${num}`, nikke[num].clickCount);
 
+        // 儲存clknum、starnum與collectnum
+        localStorage.setItem(`clknum_${num}`, clknum);
+        localStorage.setItem(`starnum_${num}`, starnum);
+        localStorage.setItem(`collectnum_${num}`, collectnum);
+
         // 儲存下拉式選單資料
         const selectElements = nikke[num].image.parentElement.querySelectorAll('select');
         for (let i = 0; i < selectElements.length; i++) {
@@ -39,6 +44,24 @@ function loadUserState() {
             if (savedSelectOption !== null) {
                 selectElements[i].value = savedSelectOption;
             }
+        }
+
+        // 載入clknum 
+        const savedClknum = localStorage.getItem(`clknum_${num}`);
+        if (savedClknum !== null) {
+            clknum = parseInt(savedClknum);
+        }
+
+        // 載入starnum 
+        const savedStarnum = localStorage.getItem(`starnum_${num}`);
+        if (savedStarnum !== null) {
+            starnum = parseInt(savedStarnum);
+        }
+
+        // 載入collectnum 
+        const saveCollectnum = localStorage.getItem(`collectnum_${num}`);
+        if (saveCollectnum !== null) {
+            collectnum = parseInt(saveCollectnum);
         }
     }
 }

@@ -1,15 +1,38 @@
+// 禁止右鍵選單
+document.addEventListener('contextmenu', (event) => {
+  event.preventDefault();
+});
+
 const nikkenum = {
-  'Elysion': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16],
-  'Missilis': [17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 29, 30, 31, 32, 33],
-  'Tetra': [34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 58, 59],
+  'Elysion': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 15],
+  'Missilis': [17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 29, 30, 31, 32, 33, 28],
+  'Tetra': [34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 58, 59, 57, 60],
   'Pilgrim': [61, 62, 63, 64, 65, 66, 67, 68, 69],
   'Abnormal': [70, 71],
-  'Limited': [15, 28, 57, 60],
 };
 
-const MFR = ['Elysion', 'Missilis', 'Tetra', 'Pilgrim', 'Abnormal', 'Limited'];
+// 使用解構賦值將容器長度儲存到相對應的變數中
+const { Elysion, Missilis, Tetra, Pilgrim, Abnormal } = nikkenum;
+const ElysionLen = Elysion.length;
+const MissilisLen = Missilis.length;
+const TetraLen = Tetra.length;
+const PilgrimLen = Pilgrim.length;
+const AbnormalLen = Abnormal.length;
+const allnikkeLen = ElysionLen + MissilisLen + TetraLen + PilgrimLen + AbnormalLen;
+
+const MFR = ['Elysion', 'Missilis', 'Tetra', 'Pilgrim', 'Abnormal'];
 const MFRLen = MFR.length;
+
 const nikke = {};
+
+let clknum = 0;
+let starnum = 0;
+let collectnum = 0;
+/*let Elysionnum = 0;
+let Missilisnum = 0;
+let Tetranum = 0;
+let Pilgrimnum = 0;
+let Abnormalnum = 0;*/
 
 class NikkeImage {
   constructor(imageUrl, width, height) {
@@ -22,6 +45,27 @@ class NikkeImage {
   }
 
   toggleStarImage(starImage) {
+    if (this.clickCount === 11) {
+      clknum = clknum - 11;
+    }
+    else {
+      clknum++;
+    }
+
+    if (this.clickCount === 3) {
+      starnum = starnum + 1;
+    }
+    else if (this.clickCount === 11) {
+      starnum = starnum - 1;
+    }
+
+    if (this.clickCount === 0) {
+      collectnum = collectnum + 1;
+    }
+    else if (this.clickCount === 11) {
+      collectnum = collectnum - 1;
+    }
+
     this.clickCount = (this.clickCount + 1) % 12;
     const imagePath = `images/others/star${this.clickCount}.webp`;
     starImage.src = imagePath;
@@ -37,9 +81,30 @@ class NikkeImage {
     }
   }
   toggleStarImageM(starImage) {
+    if (this.clickCount === 0) {
+      clknum = clknum + 11;
+    }
+    else {
+      clknum--;
+    }
+
     this.clickCount = (this.clickCount - 1 + 12) % 12;
     const imagePath = `images/others/star${this.clickCount}.webp`;
     starImage.src = imagePath;
+
+    if (this.clickCount === 3) {
+      starnum = starnum - 1;
+    }
+    else if (this.clickCount === 11) {
+      starnum = starnum + 1;
+    }
+
+    if (this.clickCount === 0) {
+      collectnum = collectnum - 1;
+    }
+    else if (this.clickCount === 11) {
+      collectnum = collectnum + 1;
+    }
 
     // 解鎖或鎖定相應的下拉式選單
     const imageStarContainer = starImage.parentElement;
@@ -147,7 +212,58 @@ function displayNikkeImages() {
   }
 }
 
-// 禁止右鍵選單
-document.addEventListener('contextmenu', (event) => {
-  event.preventDefault();
+// 反轉功能提示視窗
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top',
+  showConfirmButton: false,
+  timer: 3000,
+  onOpen: toast => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
+
+var reverseCheckbox = document.getElementById('reverseCheckbox');
+reverseCheckbox.addEventListener('change', function () {
+  if (reverseCheckbox.checked) {
+    // 被勾選時顯示警告視窗
+    Toast.fire({
+      icon: 'warning',
+      title: '已反轉左右鍵'
+    });
+  } else {
+    // 未勾選時顯示普通視窗
+    Toast.fire({
+      icon: 'warning',
+      title: '已取消反轉左右鍵'
+    });
+  }
 });
+
+//顯示統計資料
+function showdata() {
+  Swal.fire({
+    icon: 'info',
+    title: '收藏進度',
+    html: 'SSR數量：' + clknum + '<br><br>突破三以上：' + starnum + '<br><br>已擁有比例：' + collectnum + '／' + allnikkeLen + '<br><br>',
+    buttonsStyling: false, // 關閉按鈕自訂樣式開關
+    customClass: {
+      closeButton: 'swal2-close', // 設定關閉按鈕的樣式為自訂樣式
+    }
+  });
+}
+
+/*function showdata() {
+  Swal.fire({
+    icon: 'info',
+    title: '收藏進度',
+    html: 'SSR數量：' + clknum + '<br><br>突破三以上：' + starnum + '<br><br>已擁有比例：' + collectnum + '／' + allnikkeLen +
+      '<br><br>極樂淨土：' + Elysionnum + '／' + ElysionLen + '<br><br>米西利斯：' + Missilisnum + '／' + MissilisLen + '<br><br>泰特拉：' + Tetranum + '／' + TetraLen +
+      '<br><br>朝聖者：' + Pilgrimnum + '／' + PilgrimLen + '<br><br>反常：' + Abnormalnum + '／' + AbnormalLen,
+    buttonsStyling: false, // 關閉按鈕自訂樣式開關
+    customClass: {
+      closeButton: 'swal2-close', // 設定關閉按鈕的樣式為自訂樣式
+    }
+  });
+}*/
