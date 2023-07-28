@@ -114,13 +114,23 @@ function displayNikkeImages() {
       MFRDiv.appendChild(imageStarContainer);
 
       nikkeImage.image.addEventListener('click', (event) => {
-        nikkeImage.toggleStarImage(starImage);
+        if (reverseCheckbox.checked) {
+          nikkeImage.toggleStarImageM(starImage);
+        } else {
+          nikkeImage.toggleStarImage(starImage);
+        }
+        //nikkeImage.toggleStarImage(starImage);
         nikkeImage.updateImageURL(num);
       });
 
       nikkeImage.image.addEventListener('contextmenu', (event) => {
         event.preventDefault();
-        nikkeImage.toggleStarImageM(starImage);
+        if (reverseCheckbox.checked) {
+          nikkeImage.toggleStarImage(starImage);
+        } else {
+          nikkeImage.toggleStarImageM(starImage);
+        }
+        //nikkeImage.toggleStarImageM(starImage);
         nikkeImage.updateImageURL(num);
       });
 
