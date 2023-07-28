@@ -1,6 +1,6 @@
 function screenshot() {
     // 隱藏按鈕
-    var reverseCheckbox = document.getElementById('reverseCheckbox');
+    var reverseCheckbox = document.getElementById('revCheckbox');
     var resetButton = document.getElementById('btn_reset');
     var saveButton = document.getElementById('btn_save');
     reverseCheckbox.classList.add('hidden');
