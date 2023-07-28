@@ -1,0 +1,125 @@
+body {
+    font-family: Arial, "微軟正黑體";
+    user-select: none;
+    list-style-type: none;
+    /*background-image: url('images/others/background.webp');*/
+    background-size: cover;
+    width: 80%;
+    /* 替換為你想要的寬度值 */
+    margin: auto;
+    /* 可以使網頁水平居中 */
+}
+
+/* 父容器，設定為flex layout，並將元素水平排列 */
+.MFRDiv {
+    display: flex;
+    flex-wrap: wrap;
+    /* 允許元素換行 */
+    align-items: center;
+    /*對齊 */
+    gap: 20px;
+    /* 子元素之間的間距，可自行調整 */
+    margin-bottom: 20px;
+    /* 設定父容器的垂直間距 */
+}
+
+/* 每個組合的容器，設定為flex layout，並將元素垂直排列 */
+.imageStarContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* 水平居中對齊 */
+    gap: 5px;
+    /* 子元素之間的間距，可自行調整 */
+
+}
+
+/* starImage的CSS，設定其寬度和高度，讓圖片保持原大小 */
+.starImage {
+    width: 70%;
+    /* 可自行調整寬度 */
+    height: 70%;
+    /* 可自行調整高度 */
+    margin-bottom: 2px;
+    /* 設定父容器的垂直間距 */
+}
+
+/* 分隔符號的樣式 */
+.separator {
+    height: 1px;
+    /* 設定分隔符號的高度 */
+    background-color: #00000012;
+    /* 設定分隔符號的顏色 */
+    margin-top: 20px;
+    /* 設定分隔符號與圖像之間的距離 */
+    margin-bottom: 30px;
+    /* 設定分隔符號與下一個 MFRDiv 之間的距離 */
+}
+
+/* 隱藏下拉式選單的箭頭 */
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    text-align: center;
+    width: 25px;
+    height: 20px;
+}
+
+/* IE10+ */
+select::-ms-expand {
+    display: none;
+}
+
+/* IE9 */
+@media screen and (min-width:0\0) {
+    select {
+        background: none\9;
+        padding: 5px\9;
+    }
+}
+
+/* 下拉式選單容器的樣式 */
+.selectContainer {
+    display: flex;
+}
+
+/* 個別下拉式選單的樣式（可根據需要調整寬度等） */
+.selectContainer select {
+    margin-right: 10px;
+    /* 設定選單之間的水平間距 */
+}
+
+/*按鈕樣式*/
+button {
+    --c: #000000;
+    /* the color*/
+
+    box-shadow: 0 0 0 .1em inset var(--c);
+    --_g: linear-gradient(var(--c) 0 0) no-repeat;
+    background:
+        var(--_g) calc(var(--_p, 0%) - 100%) 0%,
+        var(--_g) calc(200% - var(--_p, 0%)) 0%,
+        var(--_g) calc(var(--_p, 0%) - 100%) 100%,
+        var(--_g) calc(200% - var(--_p, 0%)) 100%;
+    background-size: 50.5% calc(var(--_p, 0%)/2 + .5%);
+    outline-offset: .1em;
+    transition: background-size .4s, background-position 0s .4s;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: .1em .6em;
+    font-weight: bold;
+    border: none;
+}
+
+button:hover {
+    --_p: 100%;
+    color: #FFFFFF;
+    transition: background-position .4s, background-size 0s;
+}
+
+button:active {
+    box-shadow: 0 0 9e9q inset #0009;
+    background-color: var(--c);
+    color: #FFFFFF;
+}
