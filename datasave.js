@@ -20,7 +20,7 @@ function loadUserState() {
         const savedClickCount = localStorage.getItem(`clickCount_${num}`);
         if (savedClickCount !== null) {
             nikke[num].clickCount = parseInt(savedClickCount);
-            const imagePath = nikke[num].clickCount === 0 ? `images/character/image${num}b.webp` : `images/character/image${num}.webp`;
+            const imagePath = nikke[num].clickCount === 0 ? `images/character/image${num}.webp` : `images/character/image${num}.webp`;
             nikke[num].image.src = imagePath;
 
             // 更新星星圖片路徑
@@ -81,7 +81,7 @@ window.onbeforeunload = function () {
 function resetalldata() {
     for (const num in nikke) {
         nikke[num].clickCount = 0;
-        const imagePath = `images/character/image${num}b.webp`;
+        const imagePath = `images/character/image${num}.webp`;
         nikke[num].image.src = imagePath;
 
         const imageStarContainer = nikke[num].image.parentElement;

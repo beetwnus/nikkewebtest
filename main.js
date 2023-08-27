@@ -4,207 +4,70 @@ document.addEventListener('contextmenu', (event) => {
 });
 
 const nikkenum = {
-  'Elysion': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 15],
-  'Missilis': [17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 29, 30, 31, 32, 33, 28],
-  'Tetra': [34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 58, 59, 57, 60],
-  'Pilgrim': [61, 62, 63, 64, 65, 66, 67, 68, 69],
-  'Abnormal': [70, 71],
+  'Burst 1': [1, 5, 20, 23, 29, 35, 36, 38, 40, 41, 43, 45, 49, 50, 51, 52, 55, 59, 57, 60, 62, 64],
+  'Burst 2': [3, 4, 8, 12, 14, 73, 21, 25, 26, 27, 28, 31, 32, 37, 39, 42, 44, 47, 53, 54, 58, 24, 67, 69, 70],
+  'Burst 3': [2, 6, 7, 9, 10, 11, 13, 16, 15, 17, 18, 19, 22, 30, 33, 34, 46, 48, 56, 72, 61, 63, 65, 66, 68, 71],
 };
 
-// 使用解構賦值將容器長度儲存到相對應的變數中
-const { Elysion, Missilis, Tetra, Pilgrim, Abnormal } = nikkenum;
-const ElysionLen = Elysion.length;
-const MissilisLen = Missilis.length;
-const TetraLen = Tetra.length;
-const PilgrimLen = Pilgrim.length;
-const AbnormalLen = Abnormal.length;
-const allnikkeLen = ElysionLen + MissilisLen + TetraLen + PilgrimLen + AbnormalLen;
-
-const MFR = ['Elysion', 'Missilis', 'Tetra', 'Pilgrim', 'Abnormal'];
-const MFRLen = MFR.length;
+const Burst = ['Burst 1', 'Burst 2', 'Burst 3'];
+const BurstLen = Burst.length;
 
 const nikke = {};
 
-let clknum = 0;
-let starnum = 0;
-let collectnum = 0;
-/*let Elysionnum = 0;
-let Missilisnum = 0;
-let Tetranum = 0;
-let Pilgrimnum = 0;
-let Abnormalnum = 0;*/
-
 class NikkeImage {
-  constructor(imageUrl, width, height) {
+  constructor(imageUrl, width, height, nikkeNum) {
     this.imageUrl = imageUrl;
     this.image = new Image();
     this.image.src = this.imageUrl;
-    this.image.width = width; // 設定圖像寬度
-    this.image.height = height; // 設定圖像高度
-    this.clickCount = 0;
-  }
+    this.image.width = width;
+    this.image.height = height;
 
-  toggleStarImage(starImage) {
-    if (this.clickCount === 11) {
-      clknum = clknum - 11;
-    }
-    else {
-      clknum++;
-    }
 
-    if (this.clickCount === 3) {
-      starnum = starnum + 1;
-    }
-    else if (this.clickCount === 11) {
-      starnum = starnum - 1;
-    }
-
-    if (this.clickCount === 0) {
-      collectnum = collectnum + 1;
-    }
-    else if (this.clickCount === 11) {
-      collectnum = collectnum - 1;
-    }
-
-    this.clickCount = (this.clickCount + 1) % 12;
-    const imagePath = `images/others/star${this.clickCount}.webp`;
-    starImage.src = imagePath;
-
-    // 解鎖或鎖定相應的下拉式選單
-    const imageStarContainer = starImage.parentElement;
-    const selectElements = imageStarContainer.querySelectorAll('select');
-    for (const selectElement of selectElements) {
-      selectElement.disabled = this.clickCount === 0;
-      if (this.clickCount === 0) {
-        selectElement.value = '1'; // 將下拉式選單的值設為預設值(1)
-      }
-    }
-  }
-  toggleStarImageM(starImage) {
-    if (this.clickCount === 0) {
-      clknum = clknum + 11;
-    }
-    else {
-      clknum--;
-    }
-
-    this.clickCount = (this.clickCount - 1 + 12) % 12;
-    const imagePath = `images/others/star${this.clickCount}.webp`;
-    starImage.src = imagePath;
-
-    if (this.clickCount === 3) {
-      starnum = starnum - 1;
-    }
-    else if (this.clickCount === 11) {
-      starnum = starnum + 1;
-    }
-
-    if (this.clickCount === 0) {
-      collectnum = collectnum - 1;
-    }
-    else if (this.clickCount === 11) {
-      collectnum = collectnum + 1;
-    }
-
-    // 解鎖或鎖定相應的下拉式選單
-    const imageStarContainer = starImage.parentElement;
-    const selectElements = imageStarContainer.querySelectorAll('select');
-    for (const selectElement of selectElements) {
-      selectElement.disabled = this.clickCount === 0;
-      if (this.clickCount === 0) {
-        selectElement.value = '1'; // 將下拉式選單的值設為預設值(1)
-      }
-    }
-  }
-
-  updateImageURL(num) {
-    if (this.clickCount === 0) {
-      this.imageUrl = `images/character/image${num}b.webp`;
-    } else {
-      this.imageUrl = `images/character/image${num}.webp`;
-    }
-    this.image.src = this.imageUrl;
+    this.image.addEventListener('dragstart', (event) => {
+      event.dataTransfer.setData('text/plain', this.imageUrl); // 设置拖动数据
+      event.dataTransfer.effectAllowed = 'move'; // 设置拖动操作效果
+    });
   }
 }
+
+
 
 function displayNikkeImages() {
   const nikkeContainer = document.getElementById('nikke-images');
 
-  for (let i = 0; i < MFRLen; i++) {
-    const MFRDiv = document.createElement('div');
-    MFRDiv.classList.add('MFRDiv');
+  for (let i = 0; i < BurstLen; i++) {
+    const BurstDiv = document.createElement('div');
+    BurstDiv.classList.add('BurstDiv');
 
-    // 創建 MFR 標題元素
-    const MFRTitle = document.createElement('h2');
-    const MFRImage = document.createElement('img');
-    MFRImage.src = `images/others/MFR${i}.webp`;
-    MFRImage.width = 70;
-    MFRImage.height = 70;
-    MFRImage.title = MFR[i];
-    MFRTitle.appendChild(MFRImage);
+    // 創建 Burst 標題元素
+    const BurstTitle = document.createElement('h2');
+    const BurstImage = document.createElement('img');
+    BurstImage.src = `images/others/Burst${i}.webp`;
+    BurstImage.width = 70;
+    BurstImage.height = 70;
+    BurstImage.draggable = false;
+    BurstImage.title = Burst[i];
+    BurstTitle.appendChild(BurstImage);
 
-    // 將 MFR 標題元素添加到 MFRDiv
-    MFRDiv.appendChild(MFRTitle);
+    // 將 Burst 標題元素添加到 BurstDiv
+    BurstDiv.appendChild(BurstTitle);
 
-    for (const num of nikkenum[MFR[i]]) {
-      const imageStarContainer = document.createElement('div');
-      imageStarContainer.classList.add('imageStarContainer');
+    for (const num of nikkenum[Burst[i]]) {
+      const imageNIKKEContainer = document.createElement('div');
+      imageNIKKEContainer.classList.add('imageNIKKEContainer');
 
-      const nikkeImage = new NikkeImage(`images/character/image${num}b.webp`, 70, 70);
-      const starImage = new Image();
-      starImage.classList.add('starImage');
-      starImage.src = "images/others/star0.webp";
-      starImage.alt = "star";
+      const nikkeImage = new NikkeImage(`images/character/image${num}.webp`, 70, 70);
 
-      imageStarContainer.appendChild(nikkeImage.image);
-      imageStarContainer.appendChild(starImage);
+      imageNIKKEContainer.appendChild(nikkeImage.image);
 
-      // 建立下拉式選單
-      const selectElement = document.createElement('select');
-      for (let optionValue = 1; optionValue <= 10; optionValue++) {
-        const option = document.createElement('option');
-        option.value = optionValue;
-        option.textContent = optionValue;
-        selectElement.appendChild(option);
-      }
-
-      // 設定下拉式選單的鎖定狀態
-      selectElement.disabled = nikkeImage.clickCount === 0;
-
-      // 將三個下拉式選單添加到 imageStarContainer
-      for (let j = 0; j < 3; j++) {
-        imageStarContainer.appendChild(selectElement.cloneNode(true));
-      }
-
-      MFRDiv.appendChild(imageStarContainer);
-
-      nikkeImage.image.addEventListener('click', (event) => {
-        if (reverseCheckbox.checked) {
-          nikkeImage.toggleStarImageM(starImage);
-        } else {
-          nikkeImage.toggleStarImage(starImage);
-        }
-        //nikkeImage.toggleStarImage(starImage);
-        nikkeImage.updateImageURL(num);
-      });
-
-      nikkeImage.image.addEventListener('contextmenu', (event) => {
-        event.preventDefault();
-        if (reverseCheckbox.checked) {
-          nikkeImage.toggleStarImage(starImage);
-        } else {
-          nikkeImage.toggleStarImageM(starImage);
-        }
-        //nikkeImage.toggleStarImageM(starImage);
-        nikkeImage.updateImageURL(num);
-      });
+      BurstDiv.appendChild(imageNIKKEContainer);
 
       nikke[num] = nikkeImage;
     }
 
-    nikkeContainer.appendChild(MFRDiv);
-    // 創建分隔符號 <hr>，並將其添加到 MFRContainer 後面
-    if (i < MFRLen - 1) {
+    nikkeContainer.appendChild(BurstDiv);
+    // 創建分隔符號 <hr>，並將其添加到 BurstContainer 後面
+    if (i < BurstLen - 1) {
       const separator = document.createElement('hr');
       separator.classList.add('separator'); // 新增CSS類名
       nikkeContainer.appendChild(separator);
@@ -212,58 +75,171 @@ function displayNikkeImages() {
   }
 }
 
-// 反轉功能提示視窗
-const Toast = Swal.mixin({
-  toast: true,
-  position: 'top',
-  showConfirmButton: false,
-  timer: 3000,
-  onOpen: toast => {
-    toast.addEventListener('mouseenter', Swal.stopTimer)
-    toast.addEventListener('mouseleave', Swal.resumeTimer)
-  }
-})
+function generateTable() {
+  const teamImagesContainer = document.getElementById('team-images');
 
-var reverseCheckbox = document.getElementById('reverseCheckbox');
-reverseCheckbox.addEventListener('change', function () {
-  if (reverseCheckbox.checked) {
-    // 被勾選時顯示警告視窗
-    Toast.fire({
-      icon: 'warning',
-      title: '已反轉左右鍵'
-    });
-  } else {
-    // 未勾選時顯示普通視窗
-    Toast.fire({
-      icon: 'warning',
-      title: '已取消反轉左右鍵'
-    });
+  const table = document.createElement('table');
+  const tableId = 'team'; // 唯一的 ID
+  table.id = tableId; // 設定表格的 ID
+  table.style.borderCollapse = 'collapse'; // 合併邊框
+
+  const cells = []; // 用來儲存每個格子的狀態，是否已有圖片存在
+
+  for (let row = 0; row < 1; row++) { // 創建 1 行
+    const tableRow = document.createElement('tr');
+
+    for (let col = 0; col < 5; col++) { // 每行創建 5 列
+      const tableCell = document.createElement('td');
+      tableCell.style.border = '3px solid gray'; // 設定邊框粗細為 1 像素
+      tableCell.style.width = '100px'; // 設定每個格子寬度
+      tableCell.style.height = '100px'; // 設定每個格子高度
+      table.style.margin = '0 auto';
+      table.style.backgroundColor = 'lightgray'; // 设置背景色为浅灰色
+      table.style.marginBottom = '5px';
+
+
+      cells.push({ occupied: false, image: null, cell: tableCell }); // 添加 image 屬性
+
+      // 將可拖曳的圖像放置在表格格子中
+      tableCell.addEventListener('dragover', (event) => {
+        event.preventDefault();
+        event.dataTransfer.dropEffect = 'move';
+      });
+
+      tableCell.addEventListener('drop', (event) => {
+        event.preventDefault();
+
+        if (!cells[col].occupied) {
+          const imageUrl = event.dataTransfer.getData('text/plain');
+          const imageNum = getImageNumFromUrl(imageUrl);
+
+          if (!isImageInTeam(imageNum)) {
+            const nikkeImage = new NikkeImage(imageUrl, 70, 70);
+            tableCell.appendChild(nikkeImage.image);
+            cells[col].occupied = true;
+
+            nikkeImage.image.addEventListener('dragstart', (event) => {
+              event.preventDefault();
+            });
+
+            nikkeImage.image.addEventListener('click', () => {
+              tableCell.removeChild(nikkeImage.image);
+              cells[col].occupied = false;
+            });
+          }
+        }
+      });
+
+      tableRow.appendChild(tableCell);
+    }
+
+    table.appendChild(tableRow);
+  }
+
+  teamImagesContainer.appendChild(table);
+}
+
+generateTable();
+
+const teamImagesContainer = document.getElementById('team'); // 取得具有 id 'team' 的 HTML 容器
+
+// 當圖像被拖曳到容器上方時觸發的事件處理器
+teamImagesContainer.addEventListener('dragover', (event) => {
+  event.preventDefault(); // 阻止瀏覽器的預設放置操作
+  event.dataTransfer.dropEffect = 'move'; // 設定拖放效果為 'move'
+});
+
+// 當圖像被放置到容器內時觸發的事件處理器
+tableCell.addEventListener('drop', (event) => {
+  event.preventDefault();
+
+  if (!cells[col].occupied) {
+    const imageUrl = event.dataTransfer.getData('text/plain');
+    const imageNum = getImageNumFromUrl(imageUrl);
+
+    if (!isImageInTeam(imageNum)) {
+      const nikkeImage = new NikkeImage(imageUrl, 70, 70);
+      tableCell.appendChild(nikkeImage.image);
+      cells[col].occupied = true;
+      cells[col].image = nikkeImage.image;
+
+      nikkeImage.image.addEventListener('dragstart', (event) => {
+        event.preventDefault();
+      });
+
+      nikkeImage.image.addEventListener('click', () => {
+        tableCell.removeChild(nikkeImage.image);
+        cells[col].occupied = false;
+        cells[col].image = null;
+      });
+    }
   }
 });
 
-//顯示統計資料
-function showdata() {
-  Swal.fire({
-    icon: 'info',
-    title: '收藏進度',
-    html: 'SSR數量：' + clknum + '<br><br>突破三以上：' + starnum + '<br><br>已擁有比例：' + collectnum + '／' + allnikkeLen + '<br><br>',
-    buttonsStyling: false, // 關閉按鈕自訂樣式開關
-    customClass: {
-      closeButton: 'swal2-close', // 設定關閉按鈕的樣式為自訂樣式
+// 檢查圖像是否已存在於團隊圖像中的函數
+function isImageInTeam(imageNum) {
+  const allCells = document.querySelectorAll('td'); // 取得所有表格格子
+  for (const cell of allCells) {
+    const image = cell.querySelector('img');
+    if (image) {
+      const imageUrl = image.src;
+      const num = getImageNumFromUrl(imageUrl);
+      if (num === imageNum) {
+        return true; // 圖像已經存在於團隊圖像中
+      }
     }
-  });
+  }
+  return false; // 圖像不存在於團隊圖像中
 }
 
-/*function showdata() {
-  Swal.fire({
-    icon: 'info',
-    title: '收藏進度',
-    html: 'SSR數量：' + clknum + '<br><br>突破三以上：' + starnum + '<br><br>已擁有比例：' + collectnum + '／' + allnikkeLen +
-      '<br><br>極樂淨土：' + Elysionnum + '／' + ElysionLen + '<br><br>米西利斯：' + Missilisnum + '／' + MissilisLen + '<br><br>泰特拉：' + Tetranum + '／' + TetraLen +
-      '<br><br>朝聖者：' + Pilgrimnum + '／' + PilgrimLen + '<br><br>反常：' + Abnormalnum + '／' + AbnormalLen,
-    buttonsStyling: false, // 關閉按鈕自訂樣式開關
-    customClass: {
-      closeButton: 'swal2-close', // 設定關閉按鈕的樣式為自訂樣式
-    }
-  });
-}*/
+
+// 從圖像網址中解析出圖像編號的函數
+function getImageNumFromUrl(imageUrl) {
+  const match = imageUrl.match(/image(\d+)\.webp/); // 使用正則表達式從網址中提取編號
+  if (match && match[1]) {
+    return parseInt(match[1]); // 將編號轉換為整數並返回
+  }
+  return -1; // 如果沒有找到編號，返回 -1
+}
+
+// 增加表格的函數
+function addTeam() {
+  if (document.querySelectorAll('table').length < 5) {
+    generateTable();
+    adjustTeamImagesContainerHeight(1);
+  }
+}
+
+function removeTeam() {
+  const tables = document.querySelectorAll('table');
+  if (tables.length > 1) {
+    const lastTable = tables[tables.length - 1];
+    lastTable.remove();
+    adjustTeamImagesContainerHeight(-1);
+  }
+}
+
+function adjustTeamImagesContainerHeight(change) {
+  const teamImagesContainer = document.getElementById('team-images');
+  const currentHeight = parseInt(getComputedStyle(teamImagesContainer).height);
+  const newHeight = currentHeight + change * 100; 
+  teamImagesContainer.style.height = newHeight + 'px' - 100 + 'px';
+}
+
+function generateInitialTables() {
+  const teamImagesContainer = document.getElementById('team-images');
+  const initialHeight = 5 * 100; 
+  teamImagesContainer.style.height = initialHeight + 'px';
+
+  for (let i = 0; i < 5; i++) {
+    generateTable();
+  }
+}
+
+function generateInitialTables() {
+  for (let i = 0; i < 5; i++) {
+    generateTable();
+  }
+}
+
+generateInitialTables();
