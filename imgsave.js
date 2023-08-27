@@ -2,13 +2,13 @@ function screenshot1() {
     // 隱藏按鈕
     var removeButton = document.getElementById('btn_teamR');
     var addButton = document.getElementById('btn_teamA');
-    var resetButton = document.getElementById('btn_reset');
-    var saveButton = document.getElementById('btn_save');
+    var resetButton1 = document.getElementById('btn_reset1');
+    var saveButton1 = document.getElementById('btn_save1');
 
     removeButton.classList.add('hidden');
     addButton.classList.add('hidden');
-    resetButton.classList.add('hidden');
-    saveButton.classList.add('hidden');
+    resetButton1.classList.add('hidden');
+    saveButton1.classList.add('hidden');
 
     html2canvas(document.getElementById('team-container')).then(function (canvas) {
         var newTab = window.open();
@@ -18,8 +18,8 @@ function screenshot1() {
         // 截圖完成後顯示按鈕
         removeButton.classList.remove('hidden');
         addButton.classList.remove('hidden');
-        resetButton.classList.remove('hidden');
-        saveButton.classList.remove('hidden');
+        resetButton1.classList.remove('hidden');
+        saveButton1.classList.remove('hidden');
 
     });
 }
