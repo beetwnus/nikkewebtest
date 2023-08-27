@@ -4,42 +4,24 @@
 <head>
     <title>NIKKE Select</title>
     <link rel="shortcut icon" href="images/others/webicon.webp" alt="NIKKE" />
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="sweetalert2.css">
+    <link rel="stylesheet" href="css/styles0.css">
+    <link rel="stylesheet" href="css/sweetalert2.css">
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
 
 <body>
-    <div id="header">
-        <img src="images/others/logo.webp" width="384" height="174" draggable="false">
-    </div>
-    <div id="main">
-        <br>
-        <div id="container">
-            <br>
-            <div id="nikke-images">
-            </div>
-            <div id="team-container">
-                <div id="team-images">
-                    <hr width="80%">
-                    <h1>隊伍模擬</h1>
-                    <hr width="80%">
-                    <button id="btn_teamR" onclick="removeTeam()">－</button>
-                    <button id="btn_teamA" onclick="addTeam()">＋</button>
-                    <hr width="10%">
-                </div>
-                <hr width="80%">
-                <button id="btn_reset1" onclick="resetalldata1()">重設</button>
-                <button id="btn_save1" onclick="screenshot1()">儲存為圖片</button>
-                <h2>https://beetwnus.github.io/nikke.select/</h2>
-            </div>
+    <div class="container">
+        <div class="fixed-header">
+            <ul><a>Nikke Select</a> </ul>
+        </div>
+        <div class="menu" id="menu">
+            <ul>
+                <li><a href="nikke.html">持有妮姬</a><a href="nikke.html">隊伍模擬</a></li>
+            </ul>
         </div>
     </div>
-    <div id="footer"></div>
-    <script type="text/javascript" charset="UTF-8" src="main.js"></script>
-    <script type="text/javascript" charset="UTF-8" src="datasave.js"></script>
-    <script type="text/javascript" src="imgsave.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="js/main0.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>NIKKE Select</title>
+    <link rel="shortcut icon" href="images/others/webicon.webp" alt="NIKKE" />
+    <link rel="stylesheet" href="css/styles1.css">
+    <link rel="stylesheet" href="css/sweetalert2.css">
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+</head>
+
+<body>
+    <div class="fixed-header" onmouseover="showMenu(); enlargeHeader()" onmouseout="hideMenu(); resetHeader()">
+        <ul><a href="index.html">Nikke Select</a> </ul>
+    </div>
+    <div class="menu" id="menu" onmouseover="clearMenuTimeout(); enlargeHeader()"
+        onmouseout="hideMenu(); resetHeader()">
+        <ul>
+            <li><a href="team.html">隊伍模擬</a></li>
+        </ul>
+    </div>
+    <div id="main">
+        <br>
+        <h0>
+            <label class="switch">
+                <input type="checkbox" id="reverseCheckbox">
+                <span class="slider"></span>
+            </label>
+        </h0>
+        <div id="container">
+            <br>
+            <div id="nikke-images">
+                <hr width="80%">
+                <h1>持有妮姬</h1>
+                <hr width="80%">
+                <br>
+            </div>
+            <br>
+            <button id="btn_reset" onclick="resetalldata()">重設</button>
+            <button id="btn_save" onclick="screenshot()">儲存為圖片</button>
+            <button id="btn_data" onclick="showdata()">進度</button>
+            <h2>https://beetwnus.github.io/nikke.select/</h2>
+        </div>
+    </div>
+    <div id="footer"></div>
+    <script type="text/javascript" charset="UTF-8" src="js/main1.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="js/datasave1.js"></script>
+    <script type="text/javascript" src="js/imgsave.js"></script>
+</body>
+
+</html>

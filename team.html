@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>NIKKE Select</title>
+    <link rel="shortcut icon" href="images/others/webicon.webp" alt="NIKKE" />
+    <link rel="stylesheet" href="css/styles2.css">
+    <link rel="stylesheet" href="css/sweetalert2.css">
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+</head>
+
+<body>
+
+    <body>
+        <div class="fixed-header" onmouseover="showMenu(); enlargeHeader()" onmouseout="hideMenu(); resetHeader()">
+            <ul><a href="index.html">Nikke Select</a> </ul>
+        </div>
+        <div class="menu" id="menu" onmouseover="clearMenuTimeout(); enlargeHeader()"
+            onmouseout="hideMenu(); resetHeader()">
+            <ul>
+                <li><a href="nikke.html">持有妮姬</a></li>
+            </ul>
+        </div>
+        <div id="main">
+            <br>
+            <div id="container">
+                <br>
+                <hr width="80%">
+                <h1>妮姬</h1>
+                <hr width="80%">
+                <div id="nikke-images">
+                </div>
+                <div id="team-container">
+                    <div id="team-images">
+                        <hr width="80%">
+                        <h1>隊伍</h1>
+                        <hr width="80%">
+                        <button id="btn_teamR" onclick="removeTeam()">－</button>
+                        <button id="btn_teamA" onclick="addTeam()">＋</button>
+                        <hr width="10%">
+                    </div>
+                    <hr width="80%">
+                    <button id="btn_save1" onclick="screenshot1()">儲存為圖片</button>
+                    <h2>https://beetwnus.github.io/nikke.select/</h2>
+                </div>
+            </div>
+        </div>
+        <div id="footer"></div>
+        <script type="text/javascript" charset="UTF-8" src="js/main2.js"></script>
+        <script type="text/javascript" charset="UTF-8" src="js/datasave2.js"></script>
+        <script type="text/javascript" src="js/imgsave.js"></script>
+    </body>
+
+</html>
