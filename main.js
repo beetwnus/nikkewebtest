@@ -15,7 +15,7 @@ const BurstLen = Burst.length;
 const nikke = {};
 
 class NikkeImage {
-  constructor(imageUrl, width, height, nikkeNum) {
+  constructor(imageUrl, width, height) {
     this.imageUrl = imageUrl;
     this.image = new Image();
     this.image.src = this.imageUrl;
@@ -91,11 +91,11 @@ function generateTable() {
     for (let col = 0; col < 5; col++) { // 每行創建 5 列
       const tableCell = document.createElement('td');
       tableCell.style.border = '3px solid gray'; // 設定邊框粗細為 1 像素
-      tableCell.style.width = '100px'; // 設定每個格子寬度
-      tableCell.style.height = '100px'; // 設定每個格子高度
+      tableCell.style.width = '90px'; // 設定每個格子寬度
+      tableCell.style.height = '90px'; // 設定每個格子高度
       table.style.margin = '0 auto';
       table.style.backgroundColor = 'lightgray'; // 设置背景色为浅灰色
-      table.style.marginBottom = '5px';
+      table.style.marginBottom = '10px';
 
 
       cells.push({ occupied: false, image: null, cell: tableCell }); // 添加 image 屬性
@@ -149,7 +149,7 @@ teamImagesContainer.addEventListener('dragover', (event) => {
   event.dataTransfer.dropEffect = 'move'; // 設定拖放效果為 'move'
 });
 
-// 當圖像被放置到容器內時觸發的事件處理器
+/* 當圖像被放置到容器內時觸發的事件處理器
 tableCell.addEventListener('drop', (event) => {
   event.preventDefault();
 
@@ -175,6 +175,7 @@ tableCell.addEventListener('drop', (event) => {
     }
   }
 });
+*/
 
 // 檢查圖像是否已存在於團隊圖像中的函數
 function isImageInTeam(imageNum) {
@@ -191,7 +192,6 @@ function isImageInTeam(imageNum) {
   }
   return false; // 圖像不存在於團隊圖像中
 }
-
 
 // 從圖像網址中解析出圖像編號的函數
 function getImageNumFromUrl(imageUrl) {
@@ -237,7 +237,7 @@ function generateInitialTables() {
 }
 
 function generateInitialTables() {
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 0; i++) {
     generateTable();
   }
 }
